@@ -1,16 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>弹出层效果</title>
-	<link rel="stylesheet" href="main.css">
-	<style>
-		#mask{
-			background: #000;
-			opacity: 0.75;
-			filter: alpha (opacity=75);
-		}
-	</style>
+<meta charset="UTF-8">
+<title>弹出层效果</title>
+<link rel="stylesheet" href="main.css">
+<style>
+	#mask{
+		background: #000;
+		opacity: 0.75;
+		filter: alpha (opacity=75);
+		height: 1000px;
+		width: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: 100;
+	}
+	#login{
+		position: fixed;
+		left: 30%;
+		top: 30%;
+		z-index: 1000;
+	}
+	.loginCon{
+		width: 670px;
+		height: 380px;
+		background: url(img/loginBg.png) no-repeat;
+		position: relative;
+	}
+	#close{
+		position: absolute;
+		width: 30px;
+		height: 30px;
+		background: url(img/close.png) no-repeat;
+		top: 5px;
+		right: 5px;
+		cursor: pointer;
+	}
+</style>
+<script>
+function openNew() {
+	//获取页面的高度和宽度
+	var sHeight=document.documentElement.scrollHeight;
+	var sWidth=document.documentElement.scrollWidth;
+	//可视区域的高度与宽度
+	//如果说页面是一个竖向的页面，那么可视区域的宽度和页面的宽度是一样的
+	var wHeight=document.documentElement.clientHeight;
+
+	//创建元素节点
+	var oMask=document.createElement("div");
+		oMask.id="mask";
+		oMask.style.height=sHeight+"px";
+		oMask.style.width=sWidth+"px";
+		//在页面的尾部追加创建的节点appendChild
+		document.body.appendChild(oMask);
+	var oLogin=document.createElement("div");
+		oLogin.id="login";
+		oLogin.innerHTML="<div class='loginCon'><div id='close'></div></div>"//将传入的东西插入这个节点展示出来
+		document.body.appendChild(oLogin);
+		//获取登录框的宽高（一定要写在插入之后，因为他获取的是文档内部已有的元素）
+	var dHeight=oLogin.offsetHeight;//元素的高度
+	var dWidth=oLogin.offsetWidtn;
+
+		oLogin.style.left=(sWidth-dWidth)/2+"px";
+		oLogin.style.top=(wHeight-dHeight)/2+"px";
+
+		//获取ID为close的关闭元素
+		var oClose=document.getElementById('close');
+			oMask.onclick=oClose.onclick=function(){
+			//当点击关闭时，删除遮罩层以及登录框,点击遮罩层也能关闭
+				document.body.removeChild(oMask);
+				document.body.removeChild(oLogin);
+				}
+}
+	window.onload = function () {
+		var oBtn=document.getElementById('btnLogin');
+			oBtn.onclick=function(){//事件处理
+				openNew();
+				}
+			}			
+</script>
 </head>
 <body>
 	<div id="header">
@@ -29,7 +98,7 @@
 			</div>
 		</div>
 		<div class="login">
-			<button class="btn">登录</button>
+			<button id="btnLogin" class="btn">登录</button>
 		</div>
 	</div>
 	<div id="mainbody">
@@ -85,6 +154,11 @@
 			</div>
 		</div>
 	</div>
-	<div id="mask"></div>
+	<!-- <div id="mask"></div>
+	<div id="login">
+		<div class="loginCon">
+			<div id="close"></div>
+		</div>
+	</div> -->
 </body>
 </html>
