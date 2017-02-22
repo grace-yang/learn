@@ -1,0 +1,82 @@
+body{
+	font-family: Georgia,serif;
+	background: #ddd;
+	font-weight: 400;
+	font-size: 15px;
+	color: #333;
+	overflow: hidden;
+	-webkit-font-smoothing:antialiased;/* css3中用于设置字体的抗锯齿或者光滑度的属性 */
+}
+a{
+	text-decoration: none;
+	color: #555;
+}
+/* 清除浮动 */
+.clear{
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	clear: both;
+	padding: 0;
+	margin: 0;
+}
+.st-container{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	font-family: "Josefin Slab","Myriad Pro",Arial,sans-serif;
+}
+.st-container input,.st-container a{
+	width: 20%;
+	height: 34px;
+	line-height: 34px;
+	position: fixed;
+	bottom: 0;
+}
+.st-container input{
+	opacity: 0;
+	z-index: 1000;
+}
+.st-container a{
+	z-index: 10;
+	font-weight: 700;
+	font-size: 16px;
+	background: #e23a6e;
+	text-align: center;
+	color: #fff;
+	box-shadow: 1px 1px 1px rgba(151,24,64.0.2);
+}
+#st-control-1,#st-control-1 + a{
+	left: 0%;
+}
+#st-control-2,#st-control-2 + a{
+	left: 20%;
+}
+#st-control-3,#st-control-3 + a{
+	left: 40%;
+}
+#st-control-4,#st-control-4 + a{
+	left: 60%;
+}
+#st-control-5,#st-control-5 + a{
+	left: 80%;
+}
+.st-container input:checked + a,.st-container input:checked:hover + a{/* 这里设置被选中input后面的a的样式 */
+	background: #821134;
+}
+.st-container input:checked + a:after{
+	content: "";
+	width: 0;
+	height: 0;overflow: hidden;
+	border: 20px solid transparent;
+	border-bottom-color: #821134;
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -20px;
+}
+.st-container input:hover + a{
+	background: #AD244f;
+}

@@ -1,0 +1,52 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{
+	margin: 0; 
+	padding: 0;
+}
+span{
+	display: block;
+	text-align: center;
+	
+}
+.wrap{
+	width: 1272px;
+	height: 1000px;
+	margin: 50px auto;
+}
+.sellTitie{
+	height: 30px;
+	margin-bottom: 20px;
+}
+.sellTitie span{
+	height: 30px;
+	width: 120px;
+	line-height: 30px;
+	text-align: center;
+}
+#picList{
+	display: block;
+	float: left;
+}
+.pic{
+	width: 200px;
+	height: 240px;
+	overflow: hidden;
+	float: left;
+	border:1px solid grey;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	position: relative;
+	
+}
+.pic .item{
+	margin-top: 10px;
+} 
+.pic .item .top-title{
+	font-size: 24px;
+
+}
+.pic .item .sub-title{
+	font-size: 14px;
+	color: grey;
+	margin-top: 10px;
+
+}

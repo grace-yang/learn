@@ -14,7 +14,7 @@
 		position: absolute;
 		left: 0;
 		top: 0;
-		z-index: 100;
+		z-index: 100; 
 	}
 	#login{
 		position: fixed;
@@ -71,14 +71,14 @@ function openNew() {
 			//当点击关闭时，删除遮罩层以及登录框,点击遮罩层也能关闭
 				document.body.removeChild(oMask);
 				document.body.removeChild(oLogin);
-				}
+			}
 }
 	window.onload = function () {
 		var oBtn=document.getElementById('btnLogin');
 			oBtn.onclick=function(){//事件处理
 				openNew();
 				}
-			}			
+			}			 
 </script>
 </head>
 <body>
