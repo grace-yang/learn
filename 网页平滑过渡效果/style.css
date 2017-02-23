@@ -1,3 +1,12 @@
+@font-face{/*定义特殊字体*/
+	font-family: "raphaelicons";
+	src:url('fonts/raphaelicons-webfont.eot') format('eot'),
+		url('fonts/raphaelicons-webfont.svg') format('svg'),
+		url('fonts/raphaelicons-webfont.ttf') format('truetype'),
+		url('fonts/raphaelicons-webfont.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
 body{
 	font-family: Georgia,serif;
 	background: #ddd;
@@ -34,6 +43,7 @@ a{
 	line-height: 34px;
 	position: fixed;
 	bottom: 0;
+	cursor: pointer;
 }
 .st-container input{
 	opacity: 0;
@@ -79,4 +89,246 @@ a{
 }
 .st-container input:hover + a{
 	background: #AD244f;
+}
+/*内容区*/
+.st-scroll,.st-pannel{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+.st-scroll{
+	left: 0;
+	top: 0;
+	-webkit-transform:translate3d(0,0,0);/*通过css3 3d变化可以开启GPU加速*/
+	-moz-transform:translate3d(0,0,0);
+	-o-transform:translate3d(0,0,0);
+	-ms-transform:translate3d(0,0,0);
+	transform:translate3d(0,0,0);
+	-webkit-transition:all 0.6s ease-in-out;
+	-moz-transition:all 0.6s ease-in-out;
+	-o-transition:all 0.6s ease-in-out;
+	-ms-transition:all 0.6s ease-in-out;
+	transition:all 0.6s ease-in-out;
+}
+.st-pannel{
+	background: #fff;
+	overflow: hidden;
+}
+#st-control-1:checked ~ .st-scroll{
+	-webkit-transform:translateY(0%);
+	-moz-transform:translateY(0%);
+	-o-transform:translateY(0%);
+	-ms-transform:translateY(0%);
+	transform:translateY(0%);
+}
+#st-control-2:checked ~ .st-scroll{
+	-webkit-transform:translateY(100%);
+	-moz-transform:translateY(-100%);
+	-o-transform:translateY(-100%);
+	-ms-transform:translateY(-100%);
+	transform:translateY(-100%);
+}
+#st-control-3:checked ~ .st-scroll{
+	-webkit-transform:translateY(-200%);
+	-moz-transform:translateY(-200%);
+	-o-transform:translateY(-200%);
+	-ms-transform:translateY(-200%);
+	transform:translateY(-200%);
+}
+#st-control-4:checked ~ .st-scroll{
+	-webkit-transform:translateY(-300%);
+	-moz-transform:translateY(-300%);
+	-o-transform:translateY(-300%);
+	-ms-transform:translateY(-300%);
+	transform:translateY(-300%);
+}
+#st-control-5:checked ~ .st-scroll{
+	-webkit-transform:translateY(-400%);
+	-moz-transform:translateY(-400%);
+	-o-transform:translateY(-400%);
+	-ms-transform:translateY(-400%);
+	transform:translateY(-400%);
+}
+.st-desc{
+	width: 200px;
+	height: 200px;
+	background: #fa96b5;
+	position: absolute;
+	left: 50%;
+	top: 0;
+	margin-left: -100px;
+	-webkit-transform: translateY(-50%) rotate(45deg);
+	-moz-transform: translateY(-50%) rotate(45deg);
+	-ms-transform: translateY(-50%) rotate(45deg);
+	-o-transform: translateY(-50%) rotate(45deg);
+	transform: translateY(-50%) rotate(45deg);
+}
+[data-icon]:after{
+	content: attr(data-icon);/*用于获取属性值*/
+	width: 200px;
+	height: 200px;
+	color: #fff;
+	font-size: 90px;
+	text-align: center;
+	line-height: 200px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -100px 0 0 -100px;
+    -webkit-transform: rotate(-45deg) translateY(25%);
+    -moz-transform: rotate(-45deg) translateY(25%);
+    -ms-transform: rotate(-45deg) translateY(25%);
+    -o-transform: rotate(-45deg) translateY(25%);
+	transform: rotate(-45deg) translateY(25%);
+	font-family: "raphaelicons";
+	box-shadow: 1px 1px 1px rgba(151,24,64.0.2);
+}
+.st-pannel h2{
+	color: #e23a6e;
+	font-size: 54px;
+	line-height: 50px;
+	text-align: center;
+	font-weight: 900;
+	width: 80%;
+	position: absolute;
+	top: 50%;
+	left: 10%;
+	margin-top: -70px;
+	text-shadow: 1px 1px 1px rgba(151,24,64,0.2);
+	-webkit-backface-visibility:hidden;
+}
+#st-control-1:checked ~ .st-scroll #st-panel-1 h2,
+#st-control-2:checked ~ .st-scroll #st-panel-2 h2,
+#st-control-3:checked ~ .st-scroll #st-panel-3 h2,
+#st-control-4:checked ~ .st-scroll #st-panel-4 h2,
+#st-control-5:checked ~ .st-scroll #st-panel-5 h2{
+	-webkit-animation: moveDown 0.6s ease-in-out 0.2s backwards;
+	-moz-animation: moveDown 0.6s ease-in-out 0.2s backwards;
+	-ms-animation: moveDown 0.6s ease-in-out 0.2s backwards;
+	-o-animation: moveDown 0.6s ease-in-out 0.2s backwards;
+	animation: moveDown 0.6s ease-in-out 0.2s backwards;
+}
+@-webkit-keyframes moveDown {
+	0% {
+		-webkit-transform:translateY(-40px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform:translateY(0px);
+		opacity: 1;
+	}
+}
+@-moz-keyframes moveDown {
+	0% {
+		-webkit-transform:translateY(-40px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform:translateY(0px);
+		opacity: 1;
+	}
+}
+@-ms-keyframes moveDown {
+	0% {
+		-webkit-transform:translateY(-40px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform:translateY(0px);
+		opacity: 1;
+	}
+}
+@-o-keyframes moveDown {
+	0% {
+		-webkit-transform:translateY(-40px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform:translateY(0px);
+		opacity: 1;
+	}
+}
+@keyframes moveDown {
+	0% {
+		-webkit-transform:translateY(-40px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform:translateY(0px);
+		opacity: 1;
+	}
+}
+.st-pannel p{
+	position: absolute;
+	width: 50%;
+	top: 50%;
+	left: 25%;
+	font-size: 16px;
+	line-height: 22px;
+	padding: 0;
+	text-align: center;
+	-webkit-backface-visibility:hidden;
+	color: #8b8b8b;
+	margin-top: 10px;
+}
+#st-control-1:checked ~ .st-scroll #st-panel-1 p,
+#st-control-2:checked ~ .st-scroll #st-panel-2 p,
+#st-control-3:checked ~ .st-scroll #st-panel-3 p,
+#st-control-4:checked ~ .st-scroll #st-panel-4 p,
+#st-control-5:checked ~ .st-scroll #st-panel-5 p{
+	-webkit-animation: moveUp 0.6s ease-in-out 0.2s backwards;
+	-moz-animation: moveUp 0.6s ease-in-out 0.2s backwards;
+	-ms-animation: moveUp 0.6s ease-in-out 0.2s backwards;
+	-o-animation: moveDown 0.6s ease-in-out 0.2s backwards;
+	animation: moveUp 0.6s ease-in-out 0.2s backwards;
+}
+@-webkit-keyframes moveUp {
+	0% {
+		-webkit-transform:translateY(40px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform:translateY(0px);
+		opacity: 1;
+	}
+}
+@-moz-keyframes moveUp {
+	0% {
+		-webkit-transform:translateY(40px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform:translateY(0px);
+		opacity: 1;
+	}
+}
+@-ms-keyframes moveUp {
+	0% {
+		-webkit-transform:translateY(40px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform:translateY(0px);
+		opacity: 1;
+	}
+}
+@-o-keyframes moveUp {
+	0% {
+		-webkit-transform:translateY(40px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform:translateY(0px);
+		opacity: 1;
+	}
+}
+@keyframes moveUp {
+	0% {
+		-webkit-transform:translateY(40px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform:translateY(0px);
+		opacity: 1;
+	}
 }
