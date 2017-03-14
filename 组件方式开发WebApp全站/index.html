@@ -11,16 +11,8 @@
 	<script src="js/lib/jquery-ui.min.js"></script>
 	<script src="js/lib/jquery.fullPage.js"></script>
 
-	<!-- 加载 H5组件 相关资源 -->
-	<script>
-		var res = ['Base','Bar','Bar_v','Point','Polyline','Radar','Pie','Ring'];
-		var html = [];
-		for(s in res){
-			html.push('<script src="js/H5Component'+res[s]+'.js"><\/script>');
-			html.push('<link rel="stylesheet" href="css/H5Component'+res[s]+'.css">');
-		}
-		document.write( html.join('') );
-	</script>
+	<link rel="stylesheet" href="css/H5_loading.css">
+	<script src="js/H5_loading.js"></script>
 
 	<!-- H5对象：进行内容管理 -->
 	<script src="js/H5.js"></script>
@@ -73,6 +65,25 @@
 			50%{ top:20px}
 		}
 	</style>
+
+</head>
+<body>
+	<div class="loading">
+		<div class="double-bounce1"></div>
+		<div class="double-bounce2"></div>
+		<div id="rate">0%</div>
+	</div>
+
+	<!-- 加载 H5组件 相关资源 -->
+	<script>
+		var res = ['Base','Bar','Bar_v','Point','Polyline','Radar','Pie','Ring'];
+		var html = [];
+		for(s in res){
+			html.push('<script src="js/H5Component'+res[s]+'.js"><\/script>');
+			html.push('<link rel="stylesheet" href="css/H5Component'+res[s]+'.css">');
+		}
+		document.write( html.join('') );
+	</script>
 
 	<!-- 主要逻辑 -->
 	<script>
@@ -364,11 +375,12 @@
 						$.fn.fullpage.moveTo(1);
 					}
 				})
-			.loader(5);
+			.loader(
+				['imgs/tail_logo.png'],
+				['imgs/tail_share.png'],
+				['imgs/tail_back.png']
+				);
 		});
 	</script>
-</head>
-<body>
-	
 </body>
 </html>
