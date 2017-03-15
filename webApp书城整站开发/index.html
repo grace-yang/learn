@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>app 书城</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,minimal-ui">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/style.css">
+	<style></style>
+</head>
+<body>
+	<div id="root" class="container">
+		<!-- 点击中间实现呼出菜单，在中间位置直接盖一个透明的中间层 -->
+		<div class="m-artical-action">
+			<div class="artical-action-mid" id="action-mid"></div>
+		</div>
+
+		<div id="top-nav" class="top-nav" style="display: none">
+			<div class="icon-back"></div>
+			<div class="nav-title">返回书架</div>
+		</div>
+		<div id="fiction_chapter_title"></div>
+		<div id="fiction_container" class="m-read-content">
+			<h4>能得七皇子青睐</h4>
+			<p>
+				王梦恕说，目前的中国高铁票价仍和最初运行时保持一致，“票价六年没变，但是社会物价水平六年间有一定比例上涨。”“现在的高铁票价是‘福利’性质，高铁系统200万职工是靠铁路系统在其他方面的盈利来养活。”
+				王梦恕说，目前的中国高铁票价仍和最初运行时保持一致，“票价六年没变，但是社会物价水平六年间有一定比例上涨。”“现在的高铁票价是‘福利’性质，高铁系统200万职工是靠铁路系统在其他方面的盈利来养活。”
+				王梦恕说，目前的中国高铁票价仍和最初运行时保持一致，“票价六年没变，但是社会物价水平六年间有一定比例上涨。”“现在的高铁票价是‘福利’性质，高铁系统200万职工是靠铁路系统在其他方面的盈利来养活。”
+			</p>
+			<p>
+				王梦恕说，目前的中国高铁票价仍和最初运行时保持一致，“票价六年没变，但是社会物价水平六年间有一定比例上涨。”“现在的高铁票价是‘福利’性质，高铁系统200万职工是靠铁路系统在其他方面的盈利来养活。”
+				王梦恕说，目前的中国高铁票价仍和最初运行时保持一致，“票价六年没变，但是社会物价水平六年间有一定比例上涨。”“现在的高铁票价是‘福利’性质，高铁系统200万职工是靠铁路系统在其他方面的盈利来养活。”
+			</p>
+			<p>
+				王梦恕说，目前的中国高铁票价仍和最初运行时保持一致，“票价六年没变，但是社会物价水平六年间有一定比例上涨。”“现在的高铁票价是‘福利’性质，高铁系统200万职工是靠铁路系统在其他方面的盈利来养活。”
+				王梦恕说，目前的中国高铁票价仍和最初运行时保持一致，“票价六年没变，但是社会物价水平六年间有一定比例上涨。”“现在的高铁票价是‘福利’性质，高铁系统200万职工是靠铁路系统在其他方面的盈利来养活。”
+				王梦恕说，目前的中国高铁票价仍和最初运行时保持一致，“票价六年没变，但是社会物价水平六年间有一定比例上涨。”“现在的高铁票价是‘福利’性质，高铁系统200万职工是靠铁路系统在其他方面的盈利来养活。”
+				王梦恕说，目前的中国高铁票价仍和最初运行时保持一致，“票价六年没变，但是社会物价水平六年间有一定比例上涨。”“现在的高铁票价是‘福利’性质，高铁系统200万职工是靠铁路系统在其他方面的盈利来养活。”
+			</p>
+		</div>
+		<div class="m-button-bar">
+			<ul class="u-tab">
+				<li id="prev_button">上一章</li>
+				<li id="next_button">下一章</li>
+			</ul>
+		</div>
+
+		<div class="bottom-nav-bk bottom_nav" style="display: none"></div>	
+			
+		<div class="bottom-nav bottom_nav" style="display: none">
+			<div class="item menu-button" id="menu_button">
+				<div class="item-wrap">
+					<div class="icon-menu"></div>
+					<div class="icon-text">目录</div>
+				</div>
+			</div>
+			<div class="item" id="font-button">
+				<div class="item-wrap">
+					<div class="icon-font"></div>
+					<div class="icon-font-on" style="display: none"></div>
+					<div class="icon-text">字体</div>
+				</div>
+			</div>
+			<div class="item" id="night-button">
+				<div class="item-wrap" style="display: none" id="day_icon">
+					<div class="icon-day"></div>
+					<div class="icon-text">白天</div>
+				</div>
+				<div class="item-wrap" id="night_icon">
+					<div class="icon-night"></div>
+					<div class="icon-text">夜间</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="nav-pannel-bk font-container" style="display: none"></div><!--底部背景透明里面文字不透明 -->
+		
+		<div class="nav-pannel font-container" id="font-container" style="display: none">
+			<div class="child-mod">
+				<span>字号</span>
+				<button id="large-font" class="font-size-button">大</button>
+				<button id="small-font" class="font-size-button">小</button>
+			</div>
+			<div class="child-mod">
+				<span>背景</span>
+				<div class="bk-container">
+					<div class="bk-container-current bk-1"></div>
+				</div>
+				<div class="bk-container">
+					<div class="bk-container-current bk-2"></div>
+				</div>
+				<div class="bk-container">
+					<div class="bk-container-current bk-3"></div>
+				</div>
+				<div class="bk-container">
+					<div class="bk-container-current bk-4"></div>
+				</div>
+				<div class="bk-container">
+					<div class="bk-container-current bk-5"></div>
+				</div>
+				<div class="bk-container">
+					<div class="bk-container-current bk-6"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="lib/zepto.min.js"></script>
+	<script>
+		window.jQuery = $;//保证后面两个插件能正常使用
+	</script>
+	<script src="js/jquery.base64.js"></script>
+	<script src="js/jquery.jsonp.js"></script>
+
+	<script src="js/main.js"></script>
+</body>
+</html>
