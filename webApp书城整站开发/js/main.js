@@ -1,157 +1,198 @@
 (function(){
-	var Util = (function(){
-		//localStorage在同一域名下是共享的，为了防止别人覆盖存储，要将localStorage加上前缀并进行封装
-		var prefix = 'html5_reader_';
-		var StorageGetter = function(key){
-			return localStorage.getItem(prefix + key);
-		}
-		var StorageSetter = function(key,val){
-			return localStorage.setItem(prefix + key,val);
-		}
-		var getBSONP = function(url,callback){
-			return $.jsonp({
-				url:url,
-				cache:true,
-				callback:'duokan_function_chapter',
-				success:functin(result){
-					var data = $.base64.decode(result);
-					var json = decodeURIComponent(escape(data));
-				}
-			})
-		}
-		return {
-			StorageGetter:StorageGetter,
-			StorageSetter:StorageSetter
-		}
-	})();
-	var Dom = {
-		top_nav :$('#top-nav'),
-		bottom_nav :$('.bottom_nav'),
-		font_container :$('.font-container'),
-		icon_font_on :$('.icon-font-on'),
-		icon_font :$('.icon-font'),
-		day_icon :$('#day_icon'),
-		night_icon :$('#night_icon'),
-	}
-	var Win = $(window);
-	var Doc = $(document);
-
-	var RootContainer = $('#fiction_container');
-	var initFontSize = Util.StorageGetter('font_size');//尝试去取本地存储中的
-	initFontSize = parseInt(initFontSize);
-	if ( ! initFontSize) {
-		initFontSize = 14;
-	};
-
-	RootContainer.css('font-size',initFontSize);
-
-	var BackGroundContainer = $('.container');
-	var initBackGroundColor =Util.StorageGetter('background_color');
-	initBackGroundColor = parseInt(initBackGroundColor);
-	if (! initBackGroundColor) {
-		initBackGroundColor = '#e9dfc7';
-	}
-
-	BackGroundContainer.css('background-color',initBackGroundColor);
+	
 
 	function main(){
 		//		整个项目的入口函数
+		/*var readerModel = ReaderModel();
+		readerModel.init();*/
 		EventHanlder();
 	}
 
 	function ReaderModel(){
 		//		实现和阅读器相关的数据交互的方法
-		//	获得章节列表信息
-		var getFictionInfo = function(){
-			$.get('../data/chapter.json',function(){
-				//获得章节信息之后的回调
-			},'json');
+		
+		var Chapter_id;
+		var init = function(){
+			getFictionInfo(function(){
+				getCurChapterContent(Chapter_id,function(){
+					//TODO
+				})
+			})
 		}
+		var getFictionInfo = function(callback){//	获得章节列表信息
+			$.get('../data/chapter.json',function(data){
+				//	获得章节信息之后的回调
+				
+				Chapter_id = data.chapters[1].chapter_id;
+				callback && callback();
+			//},'json');
+		//}
 		//	获得当前章节的内容
-		var getCurChapterContent = function(chapter_id){
+		var getCurChapterContent = function(chapter_id,data){
 			$.get('../data/data' + chapter_id + '.json',function(data){
-				if (data.result === 0) {
+				if (data.result == 0) {
 					var url =data.jsonp;
+					Util.getBSONP(url,function(data){
+						callback && callback(data);
+					});
 				}
-			},'json')
-		}
+			//},'json');
+		//}
+		//return ;
 	}
 
-	function ReaderBaseFrame(){
-		//		渲染基本的UI结构
-	}
 
-	function EventHanlder(){
-		//		交互的事件绑定
-		$('#action-mid').click(function(){
-			if(Dom.top_nav.css('display') == 'none'){
-				Dom.top_nav.show();
-				Dom.bottom_nav.show();
-			}else{
-				Dom.top_nav.hide();
-				Dom.bottom_nav.hide();
-			};
-			Dom.font_container.hide();
-		});
-		$('#font-button').click(function(){
-			//唤起字体面板
-			if (Dom.font_container.css('display') == 'none') {
-				Dom.font_container.show();
-				Dom.icon_font_on.show();
-				Dom.icon_font.hide();
 
-			}else{
-				Dom.font_container.hide();
-				Dom.icon_font_on.hide();
-				Dom.icon_font.show();
-			}
+function main() {
 			
-		});
-		$('#night-button').click(function(){
-			// 触发背景切换的事件
-			if (Dom.night_icon.css('display') == 'none') {
-				Dom.night_icon.show();
-				Dom.day_icon.hide();
-				BackGroundContainer.css('background-color','#e9dfc7');
+					// 绑定事件
+					var ScrollLock = false;
+					var Doc = document;
+					var Screen = Doc.body;
+					var Win = $(window);
 
-			}else{
-				Dom.day_icon.show();
-				Dom.night_icon.hide();
-				BackGroundContainer.css('background-color','#0f1410');
-			}
-		});
+					//是否是夜间模式
+					var NightMode = false;
 
-		// 调节字体大小事件
-		$('#large-font').click(function(){
-			if (initFontSize > 20) {
-				return;
-			};
-			initFontSize += 1;
-			RootContainer.css('font-size',initFontSize);
-			Util.StorageSetter('font_size',initFontSize);
-		});
-		$('#small-font').click(function(){
-			if (initFontSize < 12) {
-				return;
-			};
-			initFontSize -= 1;
-			RootContainer.css('font-size',initFontSize);
-			Util.StorageSetter('font_size',initFontSize);
-		});
+					
 
-		//点击面板上圆圈，切换整个屏幕背景
-		$('.bk-1').click(function(){
-			BackGroundContainer.css('background-color','#f7eee5');
-			Util.StorageSetter('background_color',initBackGroundColor);
-		});
+					
 
-		Win.scroll(function(){
-			Dom.top_nav.hide();
-			Dom.bottom_nav.hide();
-			Dom.font_container.hide();
-		});
-	}
+					
 
+						var tool_bar = Util.StorageGetter('toolbar_background_color');
+						var bottomcolor = Util.StorageGetter('bottom_color');
+						var color = Util.StorageGetter('background_color');
+						var font = Util.StorageGetter('font_color');
+						var bkCurColor = Util.StorageGetter('background_color');
+						var fontColor = Util.StorageGetter('font_color');
 
-	main();
+						for (var i = 0; i < colorArr.length; i++) {
+							var display = 'none';
+							if (bkCurColor == colorArr[i].value) {
+								display = '';
+							}
+							Dom.bk_container.append('<div class="bk-container" id="' + colorArr[i].id + '" data-font="' + colorArr[i].font + '"  data-bottomcolor="' + colorArr[i].bottomcolor + '" data-color="' + colorArr[i].value + '" style="background-color:' + colorArr[i].value + '"><div class="bk-container-current" style="display:' + display + '"></div><span style="display:none">' + colorArr[i].name + '</span></div>');
+						}
+
+						RootContainer.css('min-height', $(window).height() - 100);
+
+						if (bottomcolor) {
+							$('#bottom_tool_bar_ul').find('li').css('color', bottomcolor);
+						}
+
+						if (color) {
+							$('body').css('background-color', color);
+						}
+
+						if (font) {
+							$('.m-read-content').css('color', font);
+						}
+
+						//夜间模式
+						if (fontColor == '#4e534f') {
+							NightMode = true;
+							$('#day_icon').show();
+							$('#night_icon').hide();
+							$('#bottom_tool_bar_ul').css('opacity', '0.6');
+						}
+
+					
+
+					
+
+					//页面中的零散交互事件处理
+					var EventHandler = (function() {
+						//夜间和白天模式的转化
+						Dom.night_button.click(function() {
+							if (NightMode) {
+								$('#day_icon').hide();
+								$('#night_icon').show();
+								$('#font_normal').trigger('click');
+								NightMode = false;
+							} else {
+								$('#day_icon').show();
+								$('#night_icon').hide();
+								$('#font_night').trigger('click');
+								NightMode = true;
+							}
+
+						});
+
+						//字体和背景颜色的信息设置
+						Dom.bk_container.delegate('.bk-container', 'click', function() {
+							var color = $(this).data('color');
+							var font = $(this).data('font');
+							var bottomcolor = $(this).data('bottomcolor');
+							var tool_bar = font;
+							Dom.bk_container.find('.bk-container-current').hide();
+							$(this).find('.bk-container-current').show();
+							if (!font) {
+								font = '#000';
+							}
+							if (!tool_bar) {
+								tool_bar = '#fbfcfc';
+							}
+
+							if (bottomcolor && bottomcolor != "undefined") {
+								$('#bottom_tool_bar_ul').find('li').css('color', bottomcolor);
+							} else {
+								$('#bottom_tool_bar_ul').find('li').css('color', '#a9a9a9');
+							}
+							$('body').css('background-color', color);
+							$('.m-read-content').css('color', font);
+
+							Util.StorageSetter('toolbar_background_color', tool_bar);
+							Util.StorageSetter('bottom_color', bottomcolor);
+							Util.StorageSetter('background_color', color);
+							Util.StorageSetter('font_color', font);
+
+							var fontColor = Util.StorageGetter('font_color');
+							//夜间模式
+							if (fontColor == '#4e534f') {
+								NightMode = true;
+								$('#day_icon').show();
+								$('#night_icon').hide();
+								$('#bottom_tool_bar_ul').css('opacity', '0.6');
+							} else {
+								NightMode = false;
+								$('#day_icon').hide();
+								$('#night_icon').show();
+								$('#bottom_tool_bar_ul').css('opacity', '0.9');
+							}
+						});
+
+						//按钮的多态样式效果
+						$('.spe-button').on('touchstart', function() {
+							$(this).css('background', 'rgba(255,255,255,0.3)');
+						}).on('touchmove', function() {
+							$(this).css('background', 'none');
+						}).on('touchend', function() {
+							$(this).css('background', 'none');
+						});
+
+						
+
+						var font_container = $('.font-container');
+						var font_button = $('#font-button');
+						var menu_container = $('#menu_container');
+
+						font_button.click(function() {
+							if (font_container.css('display') == 'none') {
+								font_container.show();
+								font_button.addClass('current');
+							} else {
+								font_container.hide();
+								font_button.removeClass('current');
+
+							}
+						});
+
+						RootContainer.click(function() {
+							font_container.hide();
+							font_button.removeClass('current');
+						});
+
+						
+	
 })();
